@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GCP Welcome Page</title>
+</head>
+<body>
+<input type="text" id="name" />
+<button onclick="greet()">Greet</button>
+<script src="https://apis.google.com/js/api.js"></script>
+<script>
+function greet() {
+  var name = document.getElementById("name").value;
+  var cloudbuild = google.cloudbuild();
+  cloudbuild.build({
+    source: {
+      bucket: "my-bucket",
+      object: "hello.Dockerfile"
+    },
+    target: "gcr.io/my-project/hello"
+  }).then(function() {
+    alert("Hello, " + name + "!");
+  });
+}
+</script>
+</body>
+</html>
